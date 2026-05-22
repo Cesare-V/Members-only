@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Unisciti al club</title>
+</head>
+<body>
+  <h1>Unisciti al club 🏛️</h1>
+  <p>Inserisci la password segreta per diventare membro:</p>
+
+  <% if (error) { %>
+    <p style="color:red"><%= error %></p>
+  <% } %>
+
+  <% if (success) { %>
+    <p style="color:green"><%= success %></p>
+  <% } %>
+
+  <form action="/join-club" method="POST">
+    <label>Password segreta: <input type="text" name="secret" /></label><br>
+    <button type="submit">Entra nel club</button>
+  </form>
+
+  <a href="/">Torna alla home</a>
+</body>
+</html>

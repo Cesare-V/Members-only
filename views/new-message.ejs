@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Nuovo messaggio</title>
+</head>
+<body>
+  <h1>Crea un nuovo messaggio ✍️</h1>
+
+  <% if (errors.length > 0) { %>
+    <ul>
+      <% errors.forEach(err => { %>
+        <li style="color:red"><%= err.msg %></li>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <form action="/new-message" method="POST">
+    <label>Titolo: <input type="text" name="title" /></label><br>
+    <label>Testo:</label><br>
+    <textarea name="text" rows="5" cols="40"></textarea><br>
+    <button type="submit">Pubblica</button>
+  </form>
+
+  <a href="/">Torna alla home</a>
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8">
+  <title>Members Only</title>
+</head>
+<body>
+  <h1>Benvenuto nel club! 🏛️</h1>
+
+  <% if (user) { %>
+    <p>Ciao, <strong><%= user.first_name %></strong>!</p>
+    <% if (!user.membership_status) { %>
+      <a href="/join-club">Unisciti al club</a> |
+    <% } else { %>
+      <p>✅ Sei membro del club!</p>
+    <% } %>
+    <a href="/new-message">✍️ Nuovo messaggio</a> |
+    <a href="/log-out">Logout</a>
+  <% } else { %>
+    <a href="/log-in">Accedi</a> |
+    <a href="/sign-up">Registrati</a>
+  <% } %>
+
+  <hr>
+  <h2>Messaggi</h2>
+
+  <% if (messages.length === 0) { %>
+    <p>Ancora nessun messaggio.</p>
+  <% } %>
+
+  <% messages.forEach(msg => { %>
+  <div style="border:1px solid #ccc; padding:10px; margin:10px 0;">
+    <h3><%= msg.title %></h3>
+    <p><%= msg.text %></p>
+
+    <% if (user && user.membership_status) { %>
+      <small>
+        👤 <%= msg.first_name %> <%= msg.last_name %> —
+        🕐 <%= new Date(msg.created_at).toLocaleString("it-IT") %>
+      </small>
+    <% } else { %>
+      <small>👤 Anonimo</small>
+    <% } %>
+
+    <% if (user && user.is_admin) { %>
+      <form action="/messages/<%= msg.id %>/delete" method="POST" style="display:inline;">
+        <button type="submit" onclick="return confirm('Sei sicuro di voler eliminare questo messaggio?')">
+          🗑️ Elimina
+        </button>
+      </form>
+    <% } %>
+  </div>
+<% }) %>
+
+</body>
+</html>
